@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-lg-10 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Item Details.!</h4>
+                  <div class="table-responsive pt-3">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>
+                              Name
+                          </th>
+                          <th>
+                            Email ID
+                          </th>
+                          <th>
+                            Subject
+                          </th>
+                          <th>
+                            Message
+                          </th>
+                          <th>ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for d in con %}
+                        <tr class="table-info">
+                          <td>
+                              {{d.name}}
+                          </td>
+                          <td>
+                            {{d.email}}
+                          </td>
+                          <td>
+                            {{d.sub}}
+                          </td>
+                          <td>
+                            {{d.msg}}
+                          </td>
+                           <td>
+                          <div class="d-flex align-items-center">
+                            <a href="{% url 'cdel' cid=d.id %}">
+                            <button type="button" class="btn btn-danger btn-sm btn-icon-text" style="margin-top:5px;">
+                              Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>
+                            </button>
+                              </a>
+                          </div>
+                        </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+  {% for i in messages %}
+    {% if i.tags == 'success' %}
+      <script>
+        swal('{{i}}','','success')
+      </script>
+    {% elif i.tags == 'warning' %}
+      <script>
+        swal('{{i}}','','warning')
+      </script>
+    {% elif i.tags == 'error' %}
+      <script>
+        swal('{{i}}','','error')
+      </script>
+    {% else %}
+      <script>
+        swal('{{i}}','','info')
+      </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}

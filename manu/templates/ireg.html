@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-md-10 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Add Items</h4>
+                  <p class="card-description">
+                    Enter Item Details.!
+                  </p>
+                  <form class="forms-sample" method="post" action="{% url 'cupload' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group row">
+                      <label for="exampleSelectGender" class="col-sm-3 col-form-label">Category</label>
+                      <div class="col-sm-9">
+                        <select class="form-control" id="exampleSelectGender" name="cn">
+                          {% for i in data %}
+                          <option>{{i.name}}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Item Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="exampleInputUsername2" placeholder="Item Name" name="in">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="exampleInputMobile" class="col-sm-3 col-form-label">Price</label>
+                      <div class="col-sm-9">
+                        <input type="number" class="form-control" id="exampleInputMobile" placeholder="Price" name="p">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">Details</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4" name="d"></textarea>
+                    </div>
+                    <input type="file" name="img"><br><br>
+                    <input type="file" name="img1"><br><br>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+  {% for i in messages %}
+    {% if i.tags == 'success' %}
+      <script>
+        swal('{{i}}','','success')
+      </script>
+    {% elif i.tags == 'warning' %}
+      <script>
+        swal('{{i}}','','warning')
+      </script>
+    {% elif i.tags == 'error' %}
+      <script>
+        swal('{{i}}','','error')
+      </script>
+    {% else %}
+      <script>
+        swal('{{i}}','','info')
+      </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+</body>
+</html>
+{% endblock %}
